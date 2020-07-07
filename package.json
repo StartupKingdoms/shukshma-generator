@@ -1,0 +1,32 @@
+{
+  "name": "shukshma",
+  "version": "1.0.0",
+  "description": "A microservice framework based on nodejs + typescript , abstracted on Domain Driven Design(DDD) and clean architecture",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mayurtikundi12/shukshma.js.git"
+  },
+  "keywords": [
+    "microservice",
+    "domain-driven-design",
+    "typescript",
+    "framework",
+    "clean-architecture",
+    "SOLID"
+  ],
+  "author": "Mayur Tikundi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mayurtikundi12/shukshma.js/issues"
+  },
+  "homepage": "https://github.com/mayurtikundi12/shukshma.js#readme",
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "colors": "^1.4.0",
+    "prompt": "^1.0.0"
+  }
+}
