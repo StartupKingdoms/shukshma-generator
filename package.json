@@ -27,6 +27,8 @@
   "dependencies": {
     "bluebird": "^3.7.2",
     "colors": "^1.4.0",
-    "prompt": "^1.0.0"
+    "ora": "^4.0.4",
+    "prompt": "^1.0.0",
+    "strman": "^2.0.1"
   }
 }
