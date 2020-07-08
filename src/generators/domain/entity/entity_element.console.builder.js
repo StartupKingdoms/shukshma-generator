@@ -125,12 +125,11 @@ function createClassText(className) {
 }
 
 
-async function init() {
+module.exports.init = async function init() {
     await createClass();
     await askForProperty();
 }
 
-init();
 
 
 
