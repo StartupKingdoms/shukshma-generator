@@ -5,24 +5,14 @@ const createConstructor = require('./entity-generator');
 const writePropToFile = require('./writeEntityProperty');
 const writeClassToFile = require('../../utils/writeClassToFile');
 const Promise = require('bluebird');
-const dirName = __dirname + "/build/";
+let dirName ;
+let classFileName;
 const checkIfFileExists = require('../../utils/checkIfFileExists');
 prompt.get = Promise.promisify(prompt.get);
 prompt.start();
 
-let classFileName;
 
-async function askClassName() {
-    let inp_class = await prompt.get({
-        properties: {
-            "className": {
-                description: colors.green("className")
-            }
-        }
-    });
-    classFileName = String(inp_class.className).trim() + ".js"
-    return inp_class.className;
-}
+
 
 async function askForProperty() {
     while (await askContinue()) {
@@ -103,30 +93,35 @@ function logError(error) {
     );
 }
 
-async function createClass() {
-    let className = await askClassName();
+async function createClass(className) {
     if (!checkIfFileExists(dirName,classFileName)) {
     let classText = createClassText(className);
-        writeClassToFile(classText, dirName, classFileName);
+        writeClassToFile(classText,dirName,classFileName);
+        return classText;
     }
 }
 
 
 function createClassText(className) {
     return `
-    @modelOptions({  schemaOptions: { timestamps: true }})
-    export class ${className}{ 
+import { prop, index, modelOptions, mongoose} from "@typegoose/typegoose";
     
-        constructor(){
+@modelOptions({  schemaOptions: { timestamps: true }})
+export class ${className}{ 
+    
+    constructor(){
             
-        }
     }
+}
     `
 }
 
 
-module.exports.init = async function init() {
-    await createClass();
+module.exports.init = async function init(dir_name,domainName) {
+    dirName = dir_name + "domain/";
+    classFileName = domainName+".entity.js"
+    domainName = domainName + "Entity";
+    await createClass(domainName);
     await askForProperty();
 }
 
