@@ -118,7 +118,7 @@ export class ${className}{
 
 
 module.exports.init = async function init(dir_name,domainName) {
-    dirName = dir_name + "domain/";
+    dirName = dir_name + "entity/";
     classFileName = domainName+".entity.ts"
     domainName = domainName + "Entity";
     await createClass(domainName);
