@@ -12,8 +12,10 @@ module.exports.init = function init(dirName, domainName) {
         writeClassToFile(aggText, dirName, aggrFileName);
     }else{
         const classText = readFile(dirName+aggrFileName);
-        const updatedText = updateAggClass(domainName,classText);
+        if (!classText.includes(`${strman.toCamelCase("Create"+domainName)}`)) { //need to change this condition to something better later
+            const updatedText = updateAggClass(domainName,classText);
         fs.writeFileSync(dirName+aggrFileName, updatedText);
+        }
     }
 }
 

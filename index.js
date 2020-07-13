@@ -5,6 +5,7 @@ const generateDir = require('./src/generators/utils/generateDir')
 const buildDir = __dirname+"/dist/";
 const useCaseGenerator = require('./src/generators/domain/use-cases/generate_use_case')
 const aggregateRootGenerator = require('./src/generators/domain/aggregate/aggregate_generator');
+const controllerGenerator = require('./src/generators/controller/controller_generator');
 
 async function Bootstrap(){
     generateDir(buildDir);
@@ -26,6 +27,7 @@ async function Bootstrap(){
     aggregateRootGenerator.init(buildDir,domainName);
 
     // CREATE CONTROLLERS
+    controllerGenerator.init(buildDir,domainName);
 }
 
 Bootstrap();
