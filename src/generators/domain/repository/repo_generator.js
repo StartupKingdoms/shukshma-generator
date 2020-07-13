@@ -8,16 +8,18 @@ let classfileName;
 function createRepository(domainName) {
     repoClassName = domainName + "Repository";
     isFilePresent = checkIfFileExists(dirName, domainName);
+    const domainEntityName = domainName+"Entity";
     if (!isFilePresent) {
         const repoText = `
 import { mongoose } from "@typegoose/typegoose";
-import { ${domainName+"Entity"}} from "../entity/${domainName}.entity";
+import { ${domainEntityName}} from "../entity/${domainName}.entity";
 export interface ${repoClassName}{
 
-    getById(id:mongoose.Types.ObjectId):Promise<${domainName+"Entity"}>;
-    save(instance:${domainName}+"Entity"):${domainName+"Entity"};
-    update(instance:${domainName}+"Entity"):${domainName+"Entity"};
-    delete(id:mongoose.Types.ObjectId):boolean;
+    getById(id:mongoose.Types.ObjectId):Promise<${domainEntityName}>;
+    save(instance:${domainEntityName}):Promise<${domainEntityName}>;
+    update(instance:${domainEntityName}):Promise<${domainEntityName}>;
+    delete(id:mongoose.Types.ObjectId):Promise<boolean>;
+    findAll():Promise<${domainEntityName}[]>
 }
         `
         return repoText
