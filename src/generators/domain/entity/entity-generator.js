@@ -21,7 +21,6 @@ function insertPropertyInConstructorInterface(propName,propType,classText){
     let regex = new RegExp(/\b(\w*EntityArgs\w*)\b/);
     let startBodyIndex = classText.search(regex);
     if (!startBodyIndex || startBodyIndex<1) return classText;
-    console.log(startBodyIndex);
     let endBodyIndex;
     let bodyArray = [];
     for (let pos = startBodyIndex; pos < classText.length; pos++) {
