@@ -29,8 +29,8 @@ async function askForProperty() {
             });
 
             createProperty(property.propertyName, property.propType);
-            let newClass = createConstructor(dirName + classFileName, property.propertyName, property.propType);
-            writeClassToFile(newClass, dirName, classFileName);
+            let updatedEntity = createConstructor(dirName + classFileName, property.propertyName, property.propType);
+            writeClassToFile(updatedEntity, dirName, classFileName);
         } catch (error) {
             logError(error);
         }
@@ -105,13 +105,19 @@ async function createClass(className) {
 function createClassText(className) {
     return `
 import { prop, index, modelOptions, mongoose} from "@typegoose/typegoose";
-    
+
+export interface ${className}Args{
+
+}
+
 @modelOptions({  schemaOptions: { timestamps: true }})
 export class ${className}{ 
     
-    constructor(){
+    constructor(data:${className}Args){
             
     }
+
+    public _id: mongoose.Types.ObjectId;
 }
     `
 }

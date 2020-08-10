@@ -9,41 +9,36 @@ module.exports = function getConstructor(filePath,propName,propType) {
 function injectPropToConstructor(propName, propType, classText) {
 
     let startArgsIndex = String(classText).indexOf("constructor") + "constructor".length;
-    let startBodyIndex;
-    [classText,startBodyIndex] = insertConstructorParams(startArgsIndex, propName, propType, classText);
-    let finalclassText = insertConstructorBody(startBodyIndex, propName,classText);
+    let updatedConstructorText = insertConstructorBody(startArgsIndex, propName,classText);
+    let finalclassText = insertPropertyInConstructorInterface(propName, propType, updatedConstructorText)
     return finalclassText;
     
 }
 
-function insertConstructorParams(startArgsIndex, propName, propType, classText) {
-    let argsArray = [];
-    let endArgsIndex;
 
-    for (let pos = startArgsIndex; pos < classText.length; pos++) {
 
+function insertPropertyInConstructorInterface(propName,propType,classText){
+    let regex = new RegExp(/\b(\w*EntityArgs\w*)\b/);
+    let startBodyIndex = classText.search(regex);
+    if (!startBodyIndex || startBodyIndex<1) return classText;
+    console.log(startBodyIndex);
+    let endBodyIndex;
+    let bodyArray = [];
+    for (let pos = startBodyIndex; pos < classText.length; pos++) {
         const element = classText[pos];
-        // CHECKING FOR THE ARGUMENTS OF THE CONSTRUCTOR
-        if (element == "(" && element != "{") {
-            argsArray.push(element);
-        } else if (element == ")" && element != "{") {
-            argsArray.pop();
-            if (argsArray.length == 0) {
-                endArgsIndex = pos;
+        
+        if (element == "{" ) {
+            bodyArray.push(element);
+        } else if (element == "}" ) {
+            bodyArray.pop();
+            if (bodyArray.length == 0) {
+                endBodyIndex = pos;
                 break;
             }
         }
     }
+    return classText= strman.insert(classText,`\t${propName}:${propType};\n`,endBodyIndex);
 
-    
-    if (endArgsIndex - startArgsIndex == 1){
-        classText = strman.insert(classText, (propName + ":" + propType), startArgsIndex+1);
-    }else{
-        classText = strman.insert(classText, ( "," + propName + ":" + propType), endArgsIndex);
-    }
-    
-    endArgsIndex = Number(endArgsIndex) +  String("," + propName + ":" + propType).length;
-    return [classText, endArgsIndex+1]
 }
 
 function insertConstructorBody(startBodyIndex, propName,classText){
@@ -67,9 +62,9 @@ function insertConstructorBody(startBodyIndex, propName,classText){
 
     
     if (endBodyIndex - startBodyIndex == 1){
-        classText = strman.insert(classText, `\t this.${propName} = ${propName}; \n\t`, startBodyIndex+1);
+        classText = strman.insert(classText, `\t this.${propName} = data.${propName}; \n\t`, startBodyIndex+1);
     }else{
-        classText = strman.insert(classText, `\t this.${propName} = ${propName}; \n\t`, endBodyIndex);
+        classText = strman.insert(classText, `\t this.${propName} = data.${propName}; \n\t`, endBodyIndex);
     }
     
     return classText ;

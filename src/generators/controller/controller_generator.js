@@ -28,30 +28,30 @@ export class UserFeatureController implements interfaces.Controller {
     private root:AggregateRoot = new AggregateRoot();
     constructor( ) {}
 
-    @httpGet("/get/all")
+    @httpGet("/")
     private getAll(req: express.Request, res: express.Response, next: express.NextFunction): any {
         return this.root.${strman.toCamelCase("GetAll"+domainName)}();
     }
 
-    @httpGet("/get")
+    @httpGet("/:id")
     private get(req: express.Request, res: express.Response, next: express.NextFunction): any {
         const id = req.query.id;
         return this.root.${strman.toCamelCase("Get"+domainName)}(id);
     }
 
-    @httpPost("/create")
+    @httpPost("/")
     private create(req: express.Request, res: express.Response, next: express.NextFunction): any {
         const body = req.body; //WILL RECEIVE THE REQUIRED USECASE OBJECT LATER FROM JOI;
         return this.root.${strman.toCamelCase("Create"+domainName)}(body);
     }
     
-    @httpPut("/update")
+    @httpPut("/")
     private update(req: express.Request, res: express.Response, next: express.NextFunction): any {
         const body = req.body; //WILL RECEIVE THE REQUIRED USECASE OBJECT LATER FROM JOI;
         return this.root.${strman.toCamelCase("Update"+domainName)}(body);
     }
     
-    @httpDelete("/delete")
+    @httpDelete("/")
     private delete(req: express.Request, res: express.Response, next: express.NextFunction): any {
         const body = req.body; //WILL RECEIVE THE REQUIRED USECASE OBJECT LATER FROM JOI;
          return this.root.${strman.toCamelCase("Remove"+domainName)}(body);
