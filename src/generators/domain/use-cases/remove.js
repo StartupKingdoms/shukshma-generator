@@ -1,21 +1,24 @@
 module.exports = function createUseCaseText(domainName) {
     return `
 import {${domainName+"Entity"}} from '../entity/${domainName}.entity';
-import {IocContainer} from '../../../lib/IOC/ioc_container';
 import { ${domainName+"Repository"} } from "../repository/${domainName}.repo";
 import { REPOSITORY_TYPES } from "../../../util/types/repository.types";
 
+interface Remove${domainName}Params{
+    id:string;
+    // TODO: ADD FIELDS THAT YOU NEED IN EXECUTE FUNCTION
+}
 
 export class Remove${domainName} {
 
     private storage:${domainName+"Repository"} ;
 
-    constructor() {
-            this.storage = IocContainer.get_ioc_container().get<${domainName+"Repository"}>(REPOSITORY_TYPES.${domainName+"Repository"});
+    constructor(storage:${domainName+"Repository"}) {
+        this.storage = storage;
     }
 
-    async execute(id){
-        let result = await this.storage.delete(id);
+    async execute(data:Remove${domainName}Params){
+        let result = await this.storage.remove(data.id);
         return result ;
     }
 }

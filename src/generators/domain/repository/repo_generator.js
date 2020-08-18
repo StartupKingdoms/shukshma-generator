@@ -19,7 +19,7 @@ export interface ${repoClassName}{
     getById(id:string):Promise<${domainEntityName}>;
     save(instance:${domainEntityName}):Promise<${domainEntityName}>;
     update(instance:${domainEntityName}):Promise<${domainEntityName}>;
-    delete(id:string):Promise<${domainEntityName}>;
+    remove(id:string):Promise<${domainEntityName}>;
 }
         `
         return repoText

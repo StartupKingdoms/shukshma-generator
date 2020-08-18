@@ -46,8 +46,8 @@ describe('${domainName} Repository', () => {
         //expect(updated${domainName}.YOUR_ACTUAL_FIELD).to.be.equal(saved${domainName}.YOUR_EXPECTED_FIELD);
     })
 
-    it('should delete the ${domainName}',async()=>{
-        const deleted${domainName} = <${domainEntityName}> await storage.delete(String(saved${domainName}._id));
+    it('should remove the ${domainName}',async()=>{
+        const deleted${domainName} = <${domainEntityName}> await storage.remove(String(saved${domainName}._id));
         //expect(deleted${domainName}.YOUR_ACTUAL_FIELD).to.be.equal(saved${domainName}.YOUR_EXPECTED_FIELD);
     })
 

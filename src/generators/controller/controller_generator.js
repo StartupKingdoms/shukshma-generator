@@ -20,11 +20,11 @@ module.exports.init = function init(dirName,domainName) {
 function createControllerClass(domainName){
     return `
 import * as express from "express";
-import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from "inversify-express-utils";
+import { interfaces, controller, httpGet, httpPut, httpPost, httpDelete, request, queryParam, response, requestParam } from "inversify-express-utils";
 import { AggregateRoot } from "../../domain/aggregate.root";
 
 @controller("/${strman.toLowerCase(domainName)}")
-export class UserFeatureController implements interfaces.Controller {
+export class ${domainName}Controller implements interfaces.Controller {
     private root:AggregateRoot = new AggregateRoot();
     constructor( ) {}
 

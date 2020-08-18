@@ -22,6 +22,8 @@ module.exports.init = function init(dirName, domainName) {
 
 function generateNewAggClass(domainName) {
     const domainEntityName = domainName + "Entity";
+    const domainRepositoryName = domainName + "Repository";
+    const domain_storage = domainName.toCamelCase() +"_storage";
     return `
 import { ${"Create"+domainName} } from "./${strman.toLowerCase(domainName)}/use-cases/${"create"+ domainName}";
 import { ${"Update"+domainName} } from "./${strman.toLowerCase(domainName)}/use-cases/${"update"+ domainName}";
@@ -29,15 +31,21 @@ import { ${"Remove"+domainName} } from "./${strman.toLowerCase(domainName)}/use-
 import { ${"Get"+domainName} } from "./${strman.toLowerCase(domainName)}/use-cases/${"getById"+ domainName}";
 import { ${"GetAll"+domainName} } from "./${strman.toLowerCase(domainName)}/use-cases/${"getAll"+ domainName}";
 import {${domainEntityName}} from "./${strman.toLowerCase(domainName)}/entity/${domainName}.entity";
+import { REPOSITORY_TYPES } from "../util/types/repository.types";
+import {${domain_storage}} from "./${strman.toLowerCase(domainName)}/repositiry/${domainName}.repo"
 
 export class AggregateRoot {
-    constructor() {}
+    private ${domain_storage};
+
+    constructor() {
+        this.${domain_storage} = < ${domainRepositoryName} > IocContainer.get_ioc_container().get < ${domainRepositoryName} > (REPOSITORY_TYPES.${domainRepositoryName});
+    }
 
     /**
      * ${strman.toCamelCase("Create"+domainName)}
      */
     public async ${strman.toCamelCase("Create"+domainName)}(yourData) {
-        let ${strman.toCamelCase("Create"+domainEntityName)} = new ${"Create"+domainName}();
+        let ${strman.toCamelCase("Create"+domainEntityName)} = new ${"Create"+domainName}(this.${domain_storage});
         let result = await ${strman.toCamelCase("Create"+domainEntityName)}.execute(yourData);
         return result ;
     }
@@ -46,7 +54,7 @@ export class AggregateRoot {
      * ${strman.toCamelCase("Update"+domainName)}
      */
     public async ${strman.toCamelCase("Update"+domainName)}(yourData) {
-        let ${strman.toCamelCase("Update"+domainEntityName)} = new ${"Update"+domainName}();
+        let ${strman.toCamelCase("Update"+domainEntityName)} = new ${"Update"+domainName}(this.${domain_storage});
         let result = await ${strman.toCamelCase("Update"+domainEntityName)}.execute(yourData);
         return result ;
     }
@@ -55,7 +63,7 @@ export class AggregateRoot {
      * ${strman.toCamelCase("Remove"+domainName)}
      */
     public async ${strman.toCamelCase("Remove"+domainName)}(id) {
-        let ${strman.toCamelCase("Remove"+domainEntityName)} = new ${"Remove"+domainName}();
+        let ${strman.toCamelCase("Remove"+domainEntityName)} = new ${"Remove"+domainName}(this.${domain_storage});
         let result = await ${strman.toCamelCase("Remove"+domainEntityName)}.execute(id);
         return result ;
     }
@@ -64,19 +72,19 @@ export class AggregateRoot {
      * ${strman.toCamelCase("Get"+domainName)}
      */
     public async ${strman.toCamelCase("Get"+domainName)}(id) {
-        let ${strman.toCamelCase("Get"+domainEntityName)} = new ${"Get"+domainName}();
+        let ${strman.toCamelCase("Get"+domainEntityName)} = new ${"Get"+domainName}(this.${domain_storage});
         let result = await ${strman.toCamelCase("Get"+domainEntityName)}.execute(id);
         return result ;
     }
 
-    /**
-     * ${strman.toCamelCase("GetAll"+domainName)}
-     */
-    public async ${strman.toCamelCase("GetAll"+domainName)}() {
-        let ${strman.toCamelCase("GetAll"+domainEntityName)} = new ${"GetAll"+domainName}();
-        let result = await ${strman.toCamelCase("GetAll"+domainEntityName)}.execute();
-        return result ;
-    }
+     /**
+      * ${strman.toCamelCase("GetAll"+domainName)}
+      */
+    // public async ${strman.toCamelCase("GetAll"+domainName)}() {
+    //     let ${strman.toCamelCase("GetAll"+domainEntityName)} = new ${"GetAll"+domainName}(this.${domain_storage});
+    //     let result = await ${strman.toCamelCase("GetAll"+domainEntityName)}.execute();
+    //     return result ;
+    // }
 }
 `
 }

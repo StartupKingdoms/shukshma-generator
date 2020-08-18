@@ -1,23 +1,30 @@
 const strman = require('strman');
+const get_variables = require('../repository/name_constants');
 
 module.exports = function createUseCaseText(domainName) {
-    return `
-import {${domainName+"Entity"}} from '../entity/${domainName}.entity';
-import {IocContainer} from '../../../lib/IOC/ioc_container';
-import { ${domainName+"Repository"} } from "../repository/${domainName}.repo";
-import { REPOSITORY_TYPES } from "../../../util/types/repository.types";
+    const VARIABLES = get_variables(domainName);
 
+    return `
+import {${VARIABLES.domainEntityName}} from '../entity/${domainName}.entity';
+import { ${VARIABLES.domainRepositoryName} } from "../repository/${domainName}.repo";
+
+
+interface Create${domainName}Params{
+    // TODO: ADD FIELDS THAT YOU NEED IN EXECUTE FUNCTION
+}
 
 export class Create${domainName} {
 
-    private storage:${domainName+"Repository"} ;
+    private storage:${VARIABLES.domainRepositoryName} ;
 
-    constructor() {
-            this.storage = IocContainer.get_ioc_container().get<${domainName+"Repository"}>(REPOSITORY_TYPES.${domainName+"Repository"});
+    constructor(storage:${VARIABLES.domainRepositoryName}) {
+            this.storage = storage;
     }
 
-    async execute(...args){
-        let ${strman.toCamelCase(domainName+"Entity")} = new  ${domainName+"Entity"}(...args);
+    async execute(data:Create${domainName}Params){
+        let ${strman.toCamelCase(domainName+"Entity")} = new  ${VARIABLES.domainEntityName}({
+            //PROPERTIES HERE
+        });
         let result = await this.storage.save(${strman.toCamelCase(domainName+"Entity")});
         return result ;
     }
