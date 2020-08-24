@@ -8,7 +8,7 @@ module.exports = function getUseCaseTestText(domainName){
     return `
     import {expect} from 'chai';
     import { IocContainer } from 'shukshma';
-    import {  ${VARIABLES.domainEntityName} } from '../entity/${domainName}.entity'';
+    import {  ${VARIABLES.domainEntityName} } from '../entity/${domainName}.entity';
     import { ${VARIABLES.domainRepositoryName} } from '../repository/${domainName}.repo';
     import { REPOSITORY_TYPES } from '../../../util/types/repository.types';
     import { Get${domainName} } from './${"getById" + domainName }';
@@ -32,7 +32,7 @@ module.exports = function getUseCaseTestText(domainName){
         it('Should get ${domainName}',async ()=>{
             const get${domainName} = new Get${domainName}(storage);
             ${VARIABLES.addedEntity} = await storage.save(dummy${domainName})
-            let fetched${domainName} = await get${domainName}.execute(String(${VARIABLES.addedEntity}._id));
+            let fetched${domainName} = await get${domainName}.execute({id:String(${VARIABLES.addedEntity}._id)});
 
             expect(fetched${domainName}._ACTUAL_PROPERTY).to.be.equal(CONSTANTS._EXPECTED_PROPERTY);
         });

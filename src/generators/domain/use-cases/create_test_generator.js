@@ -7,7 +7,7 @@ module.exports = function createUseCaseTestText(domainName){
     return `
     import {expect} from 'chai';
     import { IocContainer } from 'shukshma';
-    import {  ${VARIABLES.domainEntityName} } from '../entity/${domainName}.entity'';
+    import {  ${VARIABLES.domainEntityName} } from '../entity/${domainName}.entity';
     import { ${VARIABLES.domainRepositoryName} } from '../repository/${domainName}.repo';
     import { REPOSITORY_TYPES } from '../../../util/types/repository.types';
     import { Create${domainName} } from './${"create" + domainName }';

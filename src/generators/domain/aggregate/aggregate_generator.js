@@ -23,7 +23,7 @@ module.exports.init = function init(dirName, domainName) {
 function generateNewAggClass(domainName) {
     const domainEntityName = domainName + "Entity";
     const domainRepositoryName = domainName + "Repository";
-    const domain_storage = domainName.toCamelCase() +"_storage";
+    const domain_storage = domainName +"_storage";
     return `
 import { ${"Create"+domainName} } from "./${strman.toLowerCase(domainName)}/use-cases/${"create"+ domainName}";
 import { ${"Update"+domainName} } from "./${strman.toLowerCase(domainName)}/use-cases/${"update"+ domainName}";

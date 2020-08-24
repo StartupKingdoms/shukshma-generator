@@ -8,7 +8,7 @@ module.exports = function removeUseCaseTestText(domainName){
     return `
     import {expect} from 'chai';
     import { IocContainer } from 'shukshma';
-    import {  ${VARIABLES.domainEntityName} } from '../entity/${domainName}.entity'';
+    import {  ${VARIABLES.domainEntityName} } from '../entity/${domainName}.entity';
     import { ${VARIABLES.domainRepositoryName} } from '../repository/${domainName}.repo';
     import { REPOSITORY_TYPES } from '../../../util/types/repository.types';
     import { Remove${domainName} } from './${"remove" + domainName }';
@@ -32,7 +32,7 @@ module.exports = function removeUseCaseTestText(domainName){
         it('Should remove ${domainName}',async ()=>{
             const remove${domainName} = new Remove${domainName}(storage);
             ${VARIABLES.addedEntity} = await storage.save(dummy${domainName})
-            let removed${domainName} = await remove${domainName}.execute(String(${VARIABLES.addedEntity}._id));
+            let removed${domainName} = await remove${domainName}.execute({id:String(${VARIABLES.addedEntity}._id)});;
 
             expect(removed${domainName}._ACTUAL_PROPERTY).to.be.equal(CONSTANTS._EXPECTED_PROPERTY);
         });
