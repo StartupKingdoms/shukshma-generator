@@ -1,0 +1,11 @@
+{   
+    "mongo_db":{
+        "url":"mongodb://ds013559.mlab.com:13559/courseman-test",
+        "config":{
+            "useNewUrlParser": true ,
+            "useUnifiedTopology": true ,
+            "user":"tagtify",
+            "pass":"godofwar3"
+        }
+    }
+}

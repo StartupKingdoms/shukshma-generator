@@ -1,5 +1,5 @@
-const checkIfFileExists = require('../../utils/checkIfFileExists');
-const writeClassToFile = require('../../utils/writeClassToFile');
+const checkIfFileExists = require('../../../utils/checkIfFileExists');
+const writeClassToFile = require('../../../utils/writeClassToFile');
 const createUseCase = require('./create');
 const createUseCaseTest = require('./create_test_generator');
 const updateUseCase = require('./update');

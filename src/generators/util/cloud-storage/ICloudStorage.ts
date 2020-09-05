@@ -1,0 +1,4 @@
+
+export interface ICloudUpload{
+    upload();
+}

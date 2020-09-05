@@ -1,5 +1,5 @@
-const checkIfFileExists = require('../../utils/checkIfFileExists');
-const writeClassToFile = require('../../utils/writeClassToFile');
+const checkIfFileExists = require('../../../utils/checkIfFileExists');
+const writeClassToFile = require('../../../utils/writeClassToFile');
 const mongoRepoImplGenerator = require('../repository/mongo_repo_impl_generator');
 const mongoRepoTestCaseGenerator = require('./mongo_repo_testcase_generator');
 let dirName;

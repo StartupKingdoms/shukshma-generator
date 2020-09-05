@@ -1,7 +1,7 @@
 const strman = require('strman');
-const writeClassToFile = require('../../utils/writeClassToFile')
-const checkIfFileExists = require('../../utils/checkIfFileExists')
-const readFile = require('../../utils/readFile'); 
+const writeClassToFile = require('../../../utils/writeClassToFile')
+const checkIfFileExists = require('../../../utils/checkIfFileExists')
+const readFile = require('../../../utils/readFile'); 
 const fs = require('fs');
 
 

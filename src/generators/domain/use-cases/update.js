@@ -4,7 +4,6 @@ module.exports = function createUseCaseText(domainName) {
     return `
 import {${domainName+"Entity"}} from '../entity/${domainName}.entity';
 import { ${domainName+"Repository"} } from "../repository/${domainName}.repo";
-import { REPOSITORY_TYPES } from "../../../util/types/repository.types";
 
 interface Update${domainName}Params{
     id:string;

@@ -1,7 +1,7 @@
 const strman = require('strman');
-const writeClassToFile = require('../utils/writeClassToFile')
-const checkIfFileExists = require('../utils/checkIfFileExists')
-const generateDir = require('../utils/generateDir');
+const writeClassToFile = require('../../utils/writeClassToFile')
+const checkIfFileExists = require('../../utils/checkIfFileExists')
+const generateDir = require('../../utils/generateDir');
 
 
 
@@ -35,7 +35,7 @@ export class ${domainName}Controller implements interfaces.Controller {
 
     @httpGet("/:id")
     private get(req: express.Request, res: express.Response, next: express.NextFunction): any {
-        const id = req.query.id;
+        const id = req.params.id;
         return this.root.${strman.toCamelCase("Get"+domainName)}(id);
     }
 

@@ -1,18 +1,27 @@
 const entityGenerator = require('./src/generators/domain/entity/entity_element.console.builder');
 const repositoryGenerator = require('./src/generators/domain/repository/repo_generator');
-const askDomainName = require('./src/generators/utils/askDomain');
-const generateDir = require('./src/generators/utils/generateDir')
-const buildDir = __dirname+"/dist/";
-const useCaseGenerator = require('./src/generators/domain/use-cases/generate_use_case')
+const askDomainName = require('./src/utils/askDomain');
+const generateDir = require('./src/utils/generateDir');
+const buildDir = __dirname+"/dist/src/";
+const baseDir = __dirname+"/dist/";
+const useCaseGenerator = require('./src/generators/domain/use-cases/generate_use_case');
 const aggregateRootGenerator = require('./src/generators/domain/aggregate/aggregate_generator');
 const controllerGenerator = require('./src/generators/controller/controller_generator');
+const copyFolderRecussively = require('./src/utils/copyFolderRecursive');
+const copyFolderContentRecussively = require('./src/utils/copyFolderContentRecussively');
 
 async function Bootstrap(){
     generateDir(buildDir);
     const domainName = await askDomainName();
-    const domainDir = buildDir+domainName.toLowerCase()+"/";
+    const domainDir = buildDir+"domain/"+domainName.toLowerCase()+"/";
     generateDir(domainDir)
     // BUILD STEPS
+
+    // CHECK IF ROOT FILES EXIST AND COPY THE STATIC FILES
+    copyFolderContentRecussively(__dirname+"/src/generators/root",baseDir);
+    copyFolderRecussively(__dirname+"/src/generators/config",baseDir);
+    copyFolderRecussively(__dirname+"/src/generators/util",buildDir);
+    copyFolderRecussively(__dirname+"/src/generators/infrastructure",buildDir);
 
     // 1. GENERATE ENTITY
     entityGenerator.init(domainDir,domainName);
@@ -24,10 +33,11 @@ async function Bootstrap(){
     useCaseGenerator.init(domainDir,domainName);
     
     // UPDATE AGGRGATE-ROOT
-    aggregateRootGenerator.init(buildDir,domainName);
+    aggregateRootGenerator.init(domainDir,domainName);
+    // aggregateRootGenerator.init(buildDir,domainName);
 
     // CREATE CONTROLLERS
-    controllerGenerator.init(buildDir,domainName);
+    controllerGenerator.init(buildDir+"application/",domainName);
 }
 
 Bootstrap();

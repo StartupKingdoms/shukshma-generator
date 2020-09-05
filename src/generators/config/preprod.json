@@ -1,0 +1,60 @@
+{
+  "env": "preprod",
+  "server": {
+    "routes": {
+      "cors": true,
+      "timeout": {
+        "server": 1200000,
+        "socket": 1300000
+      } 
+    },
+    "port": 3001,
+    "host": "0.0.0.0"
+  },
+  "database": {
+    "mongo": {
+      "type": "mongo",
+      "name": "DB_NAME",
+      "host": "DB_HOST",
+      "port": 27017,
+      "username": "DB_USERNAME",
+      "password": "DB_PASSWORD",
+      "options":{
+        "useNewUrlParser": true ,
+        "useUnifiedTopology": true ,
+        "user":"DB_USERNAME",
+        "pass":"DB_PASSWORD"     
+      }
+    }
+  },
+  "publicFolder": "./public",
+  "uploadFolder": "/uploads",
+  "imageFolder": "/images",
+  "MixFolder": "./public/uploads/images",
+  "MixInsideFolder": "./public/uploads/images/",
+  "logging": {
+    "name": "PROJECT_NOTES",
+    "level": "debug",
+    "path": "/tmp/node_debug.log"
+  },
+  "jwt":{
+    "secret":"random-secret-password",
+    "options":{"expiresIn": "1h"}
+  } ,
+  "routePrefix": "",
+  "redis_env": {
+    "connection": {
+      "host": "0.0.0.0",
+      "port": 6379
+    }
+  },
+  "swagger": {
+    "host": "SWAGGER_HOST_NAME"
+  },
+  "aws-s3":{
+    "access_key":"ACCESS_KEY",
+    "secret_key" : "SECRET_KEY",
+    "region" : "YOUR_AWS_REGION",
+    "bucket_name" : "YOUR_BUCKET_NAME"
+  }
+}

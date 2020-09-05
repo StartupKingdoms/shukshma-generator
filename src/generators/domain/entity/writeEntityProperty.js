@@ -1,5 +1,5 @@
-const checkOrCreateFilePath = require('../../utils/checkOrCreatePath');
-const readFile = require('../../utils/readFile');
+const checkOrCreateFilePath = require('../../../utils/checkOrCreatePath');
+const readFile = require('../../../utils/readFile');
 const fs = require('fs');
 const strman = require('strman');
  

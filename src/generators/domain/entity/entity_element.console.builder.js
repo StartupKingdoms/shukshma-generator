@@ -3,11 +3,11 @@ var prompt = require("prompt");
 var colors = require("colors/safe");
 const createConstructor = require('./entity-generator');
 const writePropToFile = require('./writeEntityProperty');
-const writeClassToFile = require('../../utils/writeClassToFile');
+const writeClassToFile = require('../../../utils/writeClassToFile');
 const Promise = require('bluebird');
 let dirName ;
 let classFileName;
-const checkIfFileExists = require('../../utils/checkIfFileExists');
+const checkIfFileExists = require('../../../utils/checkIfFileExists');
 prompt.get = Promise.promisify(prompt.get);
 prompt.start();
 

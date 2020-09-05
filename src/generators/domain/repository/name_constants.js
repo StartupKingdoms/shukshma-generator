@@ -1,4 +1,4 @@
-const convertToCamelCase = require('../../utils/toCamelCase');
+const convertToCamelCase = require('../../../utils/toCamelCase');
 
 module.exports = function(domainName){
     return {

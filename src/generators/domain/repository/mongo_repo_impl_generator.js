@@ -42,7 +42,7 @@ export class ${databaseType+ domainName +"Repo"} implements ${domainRepositoryNa
     };
 
 
-    async delete(raw_id:string):Promise<${domainEntityName}>{
+    async remove(raw_id:string):Promise<${domainEntityName}>{
         const id:mongoose.Types.ObjectId= mongoose.Types.ObjectId(raw_id)
         const removed${domainNameCamelCase} = await this.${domainNameModel}.findByIdAndRemove(id);
         return removed${domainNameCamelCase};

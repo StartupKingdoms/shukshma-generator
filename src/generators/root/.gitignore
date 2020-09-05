@@ -1,0 +1,11 @@
+.idea/
+.vscode/
+node_modules/
+build/
+tmp/
+temp/
+mochawesome-report/
+.nyc_output/
+coverage/
+reports/
+.history

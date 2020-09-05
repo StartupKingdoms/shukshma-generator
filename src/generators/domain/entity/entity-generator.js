@@ -1,5 +1,5 @@
 const strman = require('strman');
-const fileReader = require('../../utils/readFile');
+const fileReader = require('../../../utils/readFile');
 
 module.exports = function getConstructor(filePath,propName,propType) {
     let text = fileReader(filePath);
