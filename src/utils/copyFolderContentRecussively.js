@@ -26,8 +26,7 @@ module.exports = function copyFolderContentRecussively(source, target) {
     // If source Folder exists copy files
     if (fs.lstatSync(source).isDirectory()) {
         files = fs.readdirSync(source);
-        console.log("files", files);
-
+        // console.log("files", files);
         files.forEach(function (file) {
             var curSource = path.join(source, file);
             if (fs.lstatSync(curSource).isDirectory()) {

@@ -9,7 +9,7 @@ import * as fileUpload from 'express-fileupload';
 import {  InversifyExpressServer, getRouteInfo } from 'inversify-express-utils';
 import * as cors from 'cors';
 
-import { IocContainer } from 'shukshma';
+import { IocContainer, serve,setup } from 'shukshma';
 import { MongoDBConnection } from './src/infrastructure/mongo_connection';
 
 import './src/util/binding/default.bindings';
@@ -41,8 +41,6 @@ let container = IocContainer.get_ioc_container();
 let server = new InversifyExpressServer(container ,null, { rootPath: "/api/v1" },null);
 server.setConfig((app) => {
     app.use(cors());
-  app.use( '/api-docs/swagger' , express.static( 'swagger' ) );
-  app.use( '/api-docs/swagger/assets' , express.static( 'node_modules/swagger-ui-dist' ) );
   app.use(bodyParser.urlencoded({
       extended: true
     }));
@@ -50,21 +48,7 @@ server.setConfig((app) => {
     app.use(cookieParser());
     app.use(compress());
     app.use(fileUpload());
-  app.use( swagger.express(
-    {
-        definition : {
-            info : {
-                title : "ORGANIZATION API" ,
-                version : "1.0"
-            },
-            basePath:"/api/v1",
-            externalDocs:{
-                url:"http://localhost:3000/api-docs/swagger.json",
-                description:"Organization apis and models"
-            }
-        }
-    }
-) );
+    app.use('/api-docs', serve ,setup() );
 });
 
 
@@ -82,12 +66,6 @@ server.setErrorConfig((app) => {
 // console.log(routeInfo);
 
 let app = server.build();
-app.listen(get("server")["port"],err=>{
-    if (err) {
-        console.log("error starting the server ",err.message);
-        return ;
-    }
-    console.log("app listening on port ",get("server")["port"])
-});
+app.listen(get("server")["port"]);
 
 export default app;

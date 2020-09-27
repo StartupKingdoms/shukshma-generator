@@ -14,6 +14,8 @@ async function Bootstrap(){
     generateDir(buildDir);
     const domainName = await askDomainName();
     const domainDir = buildDir+"domain/"+domainName.toLowerCase()+"/";
+    const aggrRootDir = buildDir+"domain/";
+
     generateDir(domainDir)
     // BUILD STEPS
 
@@ -33,7 +35,7 @@ async function Bootstrap(){
     useCaseGenerator.init(domainDir,domainName);
     
     // UPDATE AGGRGATE-ROOT
-    aggregateRootGenerator.init(domainDir,domainName);
+    aggregateRootGenerator.init(aggrRootDir,domainName);
     // aggregateRootGenerator.init(buildDir,domainName);
 
     // CREATE CONTROLLERS
