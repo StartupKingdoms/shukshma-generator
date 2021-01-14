@@ -22,7 +22,7 @@ module.exports = {
        const question = [{
             name: 'domainName',
             type: 'input',
-            message: 'Enter Domain Name',
+            message: 'Enter Domain/Project Name',
             validate: function( value ) {
               if (value.length) {
                 return true;

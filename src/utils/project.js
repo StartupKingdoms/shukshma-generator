@@ -25,7 +25,7 @@ module.exports = {
                     reject(err);
                 } else {
                     spinner.installPackages.stop();
-                    console.log(chalk.greenBright(_EMOJIS.TICK + " Initialized Git"))
+                    console.log(chalk.greenBright(_EMOJIS.TICK + " Installed Node Modules."))
                     resolve(stdout);
                 }
             });
