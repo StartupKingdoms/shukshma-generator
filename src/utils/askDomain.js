@@ -1,13 +1,39 @@
-var prompt = require("prompt");
-var colors = require("colors/safe");
+let inquirer = require("inquirer");
 
-module.exports = async function askClassName() {
-    let inp_class = await prompt.get({
-        properties: {
-            "className": {
-                description: colors.green("className")
+module.exports = {
+    askSubDomainName: async function () {
+        const question = [{
+            name: 'className',
+            type: 'input',
+            message: 'Enter SubDomain/Class Name',
+            validate: function( value ) {
+              if (value.length) {
+                return true;
+              } else {
+                return 'Enter SubDomain/Class Name';
+              }
             }
+          }];
+        
+            let input = await inquirer.prompt(question);
+            return String(input.className).trim();
+    },
+    askDomainName: async function(){
+       const question = [{
+            name: 'domainName',
+            type: 'input',
+            message: 'Enter Domain Name',
+            validate: function( value ) {
+              if (value.length) {
+                return true;
+              } else {
+                return 'Please Enter Domain Name';
+              }
+            }
+          }];
+        
+          let input = await inquirer.prompt(question);
+          return String(input.domainName).trim();
+
         }
-    });
-    return String(inp_class.className).trim();
 }
